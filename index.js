@@ -18,7 +18,7 @@ app.post('/api', (req, res) => {
         {
             'content-type': 'application/json',
         },
-        body:req.body
+        //body:req.body
     };
     request(options, function (error, response, body) {
         if (error) {
