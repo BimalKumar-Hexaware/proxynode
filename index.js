@@ -26,7 +26,6 @@ app.post('/api', (req, res) => {
             reject("Something went wrong when processing your request. Please try again.");
         }
         console.log(body);
-        resolve(body.result);
     });
 });
 
