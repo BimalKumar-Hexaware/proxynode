@@ -23,7 +23,6 @@ app.post('/api', (req, res) => {
     request(options, function (error, response, body) {
         if (error) {
             console.log(error);
-            reject("Something went wrong when processing your request. Please try again.");
         }
         console.log(body);
     });
