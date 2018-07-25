@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Bootstrap Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+	.searchbar{
+		margin-top:25px;
+		margin-left:283px;
+		width:100%;
+	}
+	.bar{
+		border-radius:0;
+		-webkit-box-shadow: 2px 3px 0px -2px #ccc;
+		padding:10px;
+		border:0px;
+		outline: none;
+		border-top: 1px solid #ccc;
+		border-left: 1px solid #ccc;
+		border-right: 1px solid #ccc;
+		border-bottom: 1px solid #CCC;
+	}
+	.bar:hover{
+		-webkit-box-shadow: 3px 6px 7px -3px #ccc;
+	}
+	</style>
+	<script>
+	$(document).ready(function() {
+		$("#startDictation").click(function(){
+			if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+				var recognition = new webkitSpeechRecognition();
+
+				recognition.continuous = false;
+				recognition.interimResults = false;
+
+				recognition.lang = "en-US";
+				recognition.start();
+
+				recognition.onresult = function(e) {
+					$("#transcript").val(e.results[0][0].transcript);
+					recognition.stop();
+				};
+
+				recognition.onerror = function(e) {
+					recognition.stop();
+				}
+
+			}
+		});
+	});
+	
+	</script>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 col-xs-12">
+			<div class="searchbar">
+				<div class="form-group ">
+					<input type="text" id="transcript" class="bar" style="width:588px; height:44px; outline:none;" class="form-control" >
+					 <a href="javascript:void(0)" id="startDictation"><i class="fa fa-microphone fa-2x"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

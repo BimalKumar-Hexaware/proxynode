@@ -1,17 +1,12 @@
-'use strict';
-var httpProxy = require('http-proxy');
-const REST_PORT = process.env.PORT || 8081;
+var express = require("express");
+var app = express();
+var path = require("path");
+var port = process.env.PORT || 8880;
 
-httpProxy.createServer({
-    target: {
-        
-        port: 8080,
-        host: 'http://gmdvproxy.acml.com'
-    },
-    forward: {
-        port: 8880,
-        host: 'http://10.82.184.75'
-    }
-}).listen(REST_PORT, function () {
-    console.log('Rest service ready on port ' + REST_PORT);
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname + '/index.html'));
+});
+
+app.listen(port, function () {
+    console.log("Application started listening port " + port);
 });
