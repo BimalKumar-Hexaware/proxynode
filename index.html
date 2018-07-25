@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>Bootstrap Example</title>
 	<meta charset="utf-8">
@@ -9,66 +10,70 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<style>
-	.searchbar{
-		margin-top:25px;
-		margin-left:283px;
-		width:100%;
-	}
-	.bar{
-		border-radius:0;
-		-webkit-box-shadow: 2px 3px 0px -2px #ccc;
-		padding:10px;
-		border:0px;
-		outline: none;
-		border-top: 1px solid #ccc;
-		border-left: 1px solid #ccc;
-		border-right: 1px solid #ccc;
-		border-bottom: 1px solid #CCC;
-	}
-	.bar:hover{
-		-webkit-box-shadow: 3px 6px 7px -3px #ccc;
-	}
+		#imaginary_container {
+			margin-top: 20%;
+			/* Don't copy this */
+		}
+
+		.stylish-input-group .input-group-addon {
+			background: white !important;
+		}
+
+		.stylish-input-group .form-control {
+			border-right: 0;
+			box-shadow: 0 0 0;
+			border-color: #ccc;
+		}
+
+		.stylish-input-group button {
+			border: 0;
+			background: transparent;
+		}
 	</style>
 	<script>
-	$(document).ready(function() {
-		$("#startDictation").click(function(){
-			if (window.hasOwnProperty('webkitSpeechRecognition')) {
+		$(document).ready(function () {
+			$("#startDictation").click(function () {
+				if (window.hasOwnProperty('webkitSpeechRecognition')) {
 
-				var recognition = new webkitSpeechRecognition();
+					var recognition = new webkitSpeechRecognition();
 
-				recognition.continuous = false;
-				recognition.interimResults = false;
+					recognition.continuous = false;
+					recognition.interimResults = false;
 
-				recognition.lang = "en-US";
-				recognition.start();
+					recognition.lang = "en-US";
+					recognition.start();
 
-				recognition.onresult = function(e) {
-					$("#transcript").val(e.results[0][0].transcript);
-					recognition.stop();
-				};
+					recognition.onresult = function (e) {
+						$("#transcript").val(e.results[0][0].transcript);
+						recognition.stop();
+					};
 
-				recognition.onerror = function(e) {
-					recognition.stop();
+					recognition.onerror = function (e) {
+						recognition.stop();
+					}
+
 				}
-
-			}
+			});
 		});
-	});
-	
+
 	</script>
 </head>
+
 <body>
-<div class="container">
-	<div class="row">
-		<div class="col-md-12 col-xs-12">
-			<div class="searchbar">
-				<div class="form-group ">
-					<input type="text" id="transcript" class="bar" style="width:588px; height:44px; outline:none;" class="form-control" >
-					 <a href="javascript:void(0)" id="startDictation"><i class="fa fa-microphone fa-2x"></i></a>
+	<div class="container">
+		<div class="col-sm-6 col-sm-offset-3">
+			<div id="imaginary_container">
+				<div class="input-group stylish-input-group">
+					<input type="text" class="form-control" id="transcript" />
+					<span class="input-group-addon">
+						<button type="button" id="startDictation">
+							<i class="fa fa-microphone"></i>
+						</button>
+					</span>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </body>
+
 </html>
