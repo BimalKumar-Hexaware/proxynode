@@ -7,6 +7,10 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+app.get('/stt', function (req, res) {
+    res.sendFile(path.join(__dirname + '/stt.html'));
+});
+
 app.listen(port, function () {
     console.log("Application started listening port " + port);
 });
