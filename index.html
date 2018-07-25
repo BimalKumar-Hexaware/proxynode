@@ -134,11 +134,26 @@
 
 			$.ajax(settings).done(function (response) {
 				console.log(response);
+				var message;
 				if (response.result.fulfillment.speech) {
-					insertChat("Agent", response.result.fulfillment.speech);
+					message = response.result.fulfillment.speech;
 				} else {
-					insertChat("Agent", "One more time?");
+					message = "One more time?";
 				}
+				insertChat("Agent", message);
+
+				var msg = new SpeechSynthesisUtterance();
+				var voices = window.speechSynthesis.getVoices();
+				msg.voice = voices[1];
+				msg.rate = 10 / 10;
+				msg.pitch = 1;
+				msg.text = message;
+
+				msg.onend = function (e) {
+					console.log('Finished in ' + event.elapsedTime + ' seconds.');
+				};
+
+				speechSynthesis.speak(msg);
 			});
 		}
 	</script>
