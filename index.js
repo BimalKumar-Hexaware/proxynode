@@ -1,16 +1,22 @@
-var express = require("express");
-var app = express();
-var path = require("path");
-var port = process.env.PORT || 8880;
-
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'));
+var http = require('http'),
+    httpProxy = require('http-proxy');
+var port = process.env.PORT || 3214; 
+//
+// Create a proxy server with custom application logic
+//
+var proxy = httpProxy.createProxyServer({});
+ 
+//
+// Create your custom server and just call `proxy.web()` to proxy
+// a web request to the target passed in the options
+// also you can use `proxy.ws()` to proxy a websockets request
+//
+var server = http.createServer(function(req, res) {
+  // You can define here your custom logic to handle the request
+  // and then proxy the request.
+  console.log(req.headers);
+  proxy.web(req, res, { target: 'https://abvisit-poc.herokuapp.com' });
 });
-
-app.get('/stt', function (req, res) {
-    res.sendFile(path.join(__dirname + '/stt.html'));
-});
-
-app.listen(port, function () {
-    console.log("Application started listening port " + port);
-});
+ 
+console.log("proxy listening on port "+port)
+server.listen(port);
