@@ -5,17 +5,21 @@ var port = process.env.PORT || 3214;
 // Create a proxy server with custom application logic
 //
 var proxy = httpProxy.createProxyServer({});
+
+proxy.on('proxyRes', function (proxyRes, req, res) {
+  console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
+});
+
+proxy.on('close', function (res, socket, head) {
+  // view disconnected websocket connections
+  console.log('Client disconnected');
+});
  
 //
 // Create your custom server and just call `proxy.web()` to proxy
 // a web request to the target passed in the options
 // also you can use `proxy.ws()` to proxy a websockets request
 //
-
-proxy.on('proxyReq', function(proxyReq, req, res, options) {
-  proxyReq.setHeader('X-Special-Proxy-Header', 'foobar');
-});
-
 var server = http.createServer(function(req, res) {
   // You can define here your custom logic to handle the request
   // and then proxy the request.
